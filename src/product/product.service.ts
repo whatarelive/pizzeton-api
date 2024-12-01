@@ -1,8 +1,8 @@
 import { randomUUID, type UUID } from 'node:crypto';
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Product } from '@prisma/client';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Prisma, Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { CreateProductDTO, UpdateProductDTO } from './dto';
+import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
 import type { IProduct } from './interfaces/product.interface';
 
 @Injectable()
@@ -13,49 +13,50 @@ export class ProductService {
   ) {}
 
   // Método para extraer todos los productos de la BD.
-  async findAll(): Promise<Product[]> {
-    try {
-      return await this.prisma.product.findMany();
+  async findAll( searchProduct: SearchProductDTO ): Promise<Product[]> {
+  
+    let product: Prisma.ProductCreateInput[];
 
-    } catch(error) {
-      this.handlerExceptions(error);
+    // Buscamos por la categoria si viene en la query.
+    if (searchProduct.category && !searchProduct.search) {
+      product = await this.prisma.product.findMany({
+        where: { category: searchProduct.category }
+      })
     }
+
+    // Buscamos por la término de busqueda si viene en la query y no esta la categoria.
+    if (!product && searchProduct.search) {
+      product = await this.prisma.product.findMany({
+        where: {
+          OR: [
+            { title: { contains: searchProduct.search } },
+            { subtitle: { contains: searchProduct.search } }
+          ]
+        }
+      })
+    }
+
+    // Si no se proporciona ningún término de busqueda o categoría se extraen todos los productos.
+    if (!product) 
+      product = await this.prisma.product.findMany();
+    
+    // Si no se encontro ningún producto con las operaciones anteriores se lanza la excepción. 
+    if (product.length === 0) 
+      throw new NotFoundException('Products not exists.');
+    
+    return product;
   }
 
   // Método para extraer el producto con ese ID de la BD.
   async findById( id: UUID ): Promise<Product> {
-    try{
-      return await this.prisma.product.findUnique({ 
-        where: { id }
-      });
+    const product = await this.prisma.product.findUnique({ 
+      where: { id }
+    });
 
-    } catch(error) {
-      this.handlerExceptions(error);
-    }
-  }
+    if (!product) 
+      throw new NotFoundException(`Product with id: ${id} not exists in db.`);
 
-  // Método para extraer todos los productos con esa categoria de la BD.
-  async findByCategory( category: string ): Promise<Product[]> {
-    try {
-      return await this.prisma.product.findMany({ 
-        where: { category } 
-      });
-    
-    } catch (error) {
-      this.handlerExceptions(error);
-    }
-  }
-
-  // Método para extraer todos los productos que contengan ese término de busqueda de la BD.
-  async findByTerm( term: string ): Promise<Product[]> {
-    try {
-      await this.prisma.$executeRaw`CREATE VIRTUAL TABLE IF NOT EXISTS products USING fts5(title, subtitle);`;
-      
-      return await this.prisma.$queryRaw`SELECT * FROM Product WHERE products MATCH ${term}`;
-      
-    } catch (error) {
-      this.handlerExceptions(error);
-    }
+    return product;
   }
 
   // Método para ingresar un nuevo producto en la BD.
@@ -69,7 +70,7 @@ export class ProductService {
       return await this.prisma.product.create({ data: product });
       
     } catch (error) {
-      this.handlerExceptions(error);
+      this.handlerExceptions(error, createProduct.title);
     }
   }
 
@@ -82,7 +83,7 @@ export class ProductService {
       });
 
     } catch (error) {
-      this.handlerExceptions(error);
+      this.handlerExceptions(error, updateProduct.title);
     }
   }
 
@@ -94,16 +95,20 @@ export class ProductService {
       });
 
     } catch (error) {
-      this.handlerExceptions(error);
+      this.handlerExceptions(error, id);
     }
   }
 
-  // Metodo para manejar las excepciones no controladas
-  private handlerExceptions( error: any ) {
+  // Método para manejar las excepciones no controladas
+  private handlerExceptions( error: any, value?: any ) {
     if (error.code === 'P2002') {
-      throw new BadRequestException(`Product with name: ${ JSON.stringify( error.keyValue ) } is exists in db.`);
+      throw new BadRequestException(`Product with ${ error.meta.target }: ${ value } is exists in db.`);
     }
 
-    throw new InternalServerErrorException(`Can't creant Product - Check Server logs`);
+    if (error.code === 'P2025') {
+      throw new NotFoundException(`Product with id: ${value} not exists in db.`);
+    }
+
+    throw new InternalServerErrorException(`Can't creant Product - Check Server logs`); 
   }
 }
