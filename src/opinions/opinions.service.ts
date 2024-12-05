@@ -1,26 +1,36 @@
+import { randomUUID, type UUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
+import { Opinion as OpinionModel } from '@prisma/client';
+import { PrismaService } from 'src/prisma.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
-import { UpdateOpinionDto } from './dto/update-opinion.dto';
 
 @Injectable()
 export class OpinionsService {
-  create(createOpinionDto: CreateOpinionDto) {
-    return 'This action adds a new opinion';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createOpinion: CreateOpinionDto): Promise<OpinionModel> {
+    try {
+      const { userId, ...restData } = createOpinion;
+
+      return await this.prisma.opinion.create({
+        data: {
+          id: randomUUID(),
+          user: { connect: { id: userId } },
+          ...restData,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all opinions`;
+  async findAll(): Promise<OpinionModel[]> {
+    return this.prisma.opinion.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} opinion`;
-  }
-
-  update(id: number, updateOpinionDto: UpdateOpinionDto) {
-    return `This action updates a #${id} opinion`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} opinion`;
+  async delete(id: UUID) {
+    return this.prisma.opinion.delete({
+      where: { id },
+    });
   }
 }
