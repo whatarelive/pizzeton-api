@@ -1,23 +1,13 @@
-import {
-  IsDate,
-  IsInt,
-  IsNumber,
-  IsPositive,
-  IsString,
-  IsUUID,
-} from 'class-validator';
-import type { UUID } from 'node:crypto';
+import { IsDate, IsInt, IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateOpinionDto {
   @IsDate()
   date: Date;
 
-  @IsUUID()
-  userId: UUID;
-
   @IsNumber()
-  @IsInt({})
-  @IsPositive()
+  @IsInt()
+  @Min(1)
+  @Max(5)
   valoration: number;
 
   @IsString()

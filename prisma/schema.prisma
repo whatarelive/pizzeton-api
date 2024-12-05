@@ -21,6 +21,7 @@ model User {
   name     String    @unique
   email    String    @unique
   password String
+  role     String    @default("user")
   isBaned  Boolean   @default(false)
   Opinion  Opinion[]
 }

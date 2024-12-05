@@ -22,7 +22,7 @@ export class AuthService {
     try {
       const { password, email, name } = createUserDto;
 
-      const user = await this.prisma.user.create({
+      const { id, ...user } = await this.prisma.user.create({
         data: {
           id: crypto.randomUUID(),
           name: name.trim(),
@@ -35,7 +35,7 @@ export class AuthService {
 
       return {
         ...user,
-        token: this.genJwt({ email: user.email }),
+        token: this.genJwt({ id }),
       };
     } catch (error) {
       this.handlerError(error);
@@ -46,7 +46,7 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const { email, password } = loginUserDto;
 
-    const user = await this.prisma.user.findUnique({
+    const { id, ...user } = await this.prisma.user.findUnique({
       where: { email },
     });
 
@@ -60,7 +60,7 @@ export class AuthService {
 
     return {
       ...user,
-      token: this.genJwt({ email: user.email }),
+      token: this.genJwt({ id }),
     };
   }
 
