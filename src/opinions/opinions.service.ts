@@ -1,4 +1,4 @@
-import { randomUUID, type UUID } from 'node:crypto';
+import { type UUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { Opinion as OpinionModel } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
@@ -8,17 +8,12 @@ import { CreateOpinionDto } from './dto/create-opinion.dto';
 export class OpinionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createOpinion: CreateOpinionDto): Promise<OpinionModel> {
+  async create({}: CreateOpinionDto): Promise<OpinionModel> {
     try {
-      const { userId, ...restData } = createOpinion;
-
-      return await this.prisma.opinion.create({
-        data: {
-          id: randomUUID(),
-          user: { connect: { id: userId } },
-          ...restData,
-        },
-      });
+      // return await this.prisma.opinion.create({
+      //   data: {},
+      // });
+      return;
     } catch (error) {
       console.log(error);
     }

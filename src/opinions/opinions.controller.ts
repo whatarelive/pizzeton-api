@@ -8,16 +8,23 @@ import {
   Delete,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { Auth } from 'src/auth/decorators';
 import { Opinion as OpinionModel } from '@prisma/client';
 import { OpinionsService } from './opinions.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
 
 @Controller('opinions')
 export class OpinionsController {
   constructor(private readonly opinionsService: OpinionsService) {}
 
   @Post()
-  create(@Body() createOpinionDto: CreateOpinionDto): Promise<OpinionModel> {
+  @Auth()
+  create(
+    @Body() createOpinionDto: CreateOpinionDto,
+    @GetUser('id', ParseUUIDPipe) userId: UUID,
+  ): Promise<OpinionModel> {
+    console.log(userId);
     return this.opinionsService.create(createOpinionDto);
   }
 
@@ -27,6 +34,7 @@ export class OpinionsController {
   }
 
   @Delete(':id')
+  @Auth()
   remove(@Param('id', ParseUUIDPipe) id: UUID): Promise<OpinionModel> {
     return this.opinionsService.delete(id);
   }
