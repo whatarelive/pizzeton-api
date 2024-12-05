@@ -18,6 +18,11 @@ import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @Post() // Crea un nuevo producto en la BD.
+  create(@Body() createProduct: CreateProductDTO): Promise<ProductModel> {
+    return this.productService.create(createProduct);
+  }
+
   @Get() // Retorna todos los productos según el término de busqueda.
   findAll(@Query() searchProduct: SearchProductDTO): Promise<ProductModel[]> {
     return this.productService.findAll(searchProduct);
@@ -26,11 +31,6 @@ export class ProductController {
   @Get(':id') // Retorna el producto con ese id.
   findById(@Param('id', ParseUUIDPipe) id: UUID): Promise<ProductModel> {
     return this.productService.findById(id);
-  }
-
-  @Post() // Crea un nuevo producto en la BD.
-  create(@Body() createProduct: CreateProductDTO): Promise<ProductModel> {
-    return this.productService.create(createProduct);
   }
 
   @Patch(':id') // Actualiza un producto de la BD.

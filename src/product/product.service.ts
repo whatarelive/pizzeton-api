@@ -14,24 +14,38 @@ import type { IProduct } from './interfaces/product.interface';
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
+  // Método para ingresar un nuevo producto en la BD.
+  async create(createProduct: CreateProductDTO): Promise<Product> {
+    try {
+      const product: IProduct = {
+        id: randomUUID(),
+        ...createProduct,
+      };
+
+      return await this.prisma.product.create({ data: product });
+    } catch (error) {
+      this.handlerExceptions(error, createProduct.title);
+    }
+  }
+
   // Método para extraer todos los productos de la BD.
-  async findAll(searchProduct: SearchProductDTO): Promise<Product[]> {
+  async findAll({ category, search }: SearchProductDTO): Promise<Product[]> {
     let product: Prisma.ProductCreateInput[];
 
     // Buscamos por la categoria si viene en la query.
-    if (searchProduct.category && !searchProduct.search) {
+    if (category && !search) {
       product = await this.prisma.product.findMany({
-        where: { category: searchProduct.category },
+        where: { category },
       });
     }
 
     // Buscamos por la término de busqueda si viene en la query y no esta la categoria.
-    if (!product && searchProduct.search) {
+    if (!product && search) {
       product = await this.prisma.product.findMany({
         where: {
           OR: [
-            { title: { contains: searchProduct.search } },
-            { subtitle: { contains: searchProduct.search } },
+            { title: { contains: search } },
+            { subtitle: { contains: search } },
           ],
         },
       });
@@ -59,20 +73,6 @@ export class ProductService {
     return product;
   }
 
-  // Método para ingresar un nuevo producto en la BD.
-  async create(createProduct: CreateProductDTO): Promise<Product> {
-    try {
-      const product: IProduct = {
-        id: randomUUID(),
-        ...createProduct,
-      };
-
-      return await this.prisma.product.create({ data: product });
-    } catch (error) {
-      this.handlerExceptions(error, createProduct.title);
-    }
-  }
-
   // Método para actualizar un producto de la BD.
   async update(id: UUID, updateProduct: UpdateProductDTO): Promise<Product> {
     try {
@@ -97,17 +97,15 @@ export class ProductService {
   }
 
   // Método para manejar las excepciones no controladas
-  private handlerExceptions(error: any, value?: any) {
+  private handlerExceptions(error: any, value?: any): never {
     if (error.code === 'P2002') {
       throw new BadRequestException(
-        `Product with ${error.meta.target}: ${value} is exists in db.`,
+        `Product with ${error.meta.target}: ${value} is exists.`,
       );
     }
 
     if (error.code === 'P2025') {
-      throw new NotFoundException(
-        `Product with id: ${value} not exists in db.`,
-      );
+      throw new NotFoundException(`Product with id: ${value} not exists.`);
     }
 
     throw new InternalServerErrorException(

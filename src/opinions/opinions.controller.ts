@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import type { UUID } from 'node:crypto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
+import { Opinion as OpinionModel } from '@prisma/client';
 import { OpinionsService } from './opinions.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
 
@@ -7,17 +17,17 @@ export class OpinionsController {
   constructor(private readonly opinionsService: OpinionsService) {}
 
   @Post()
-  create(@Body() createOpinionDto: CreateOpinionDto) {
+  create(@Body() createOpinionDto: CreateOpinionDto): Promise<OpinionModel> {
     return this.opinionsService.create(createOpinionDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<OpinionModel[]> {
     return this.opinionsService.findAll();
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.opinionsService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: UUID): Promise<OpinionModel> {
+    return this.opinionsService.delete(id);
   }
 }
