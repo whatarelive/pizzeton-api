@@ -1,7 +1,4 @@
 import { Module } from '@nestjs/common';
-import { PaginationDto } from './dto/paginationDto.dto';
 
-@Module({
-  exports: [PaginationDto],
-})
+@Module({})
 export class CommonModule {}

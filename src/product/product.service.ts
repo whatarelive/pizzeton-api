@@ -9,6 +9,7 @@ import { Prisma, Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
 import type { IProduct } from './interfaces/product.interface';
+import { PaginationDto } from '../common/dto/paginationDto.dto';
 
 @Injectable()
 export class ProductService {
@@ -29,13 +30,18 @@ export class ProductService {
   }
 
   // Método para extraer todos los productos de la BD.
-  async findAll({ category, search }: SearchProductDTO): Promise<Product[]> {
+  async findAll(
+    { category, search }: SearchProductDTO,
+    { limit, offset }: PaginationDto,
+  ): Promise<Product[]> {
     let product: Prisma.ProductCreateInput[];
 
     // Buscamos por la categoria si viene en la query.
     if (category && !search) {
       product = await this.prisma.product.findMany({
         where: { category },
+        take: limit,
+        skip: offset,
       });
     }
 
@@ -48,11 +54,18 @@ export class ProductService {
             { subtitle: { contains: search } },
           ],
         },
+        take: limit,
+        skip: offset,
       });
     }
 
     // Si no se proporciona ningún término de busqueda o categoría se extraen todos los productos.
-    if (!product) product = await this.prisma.product.findMany();
+    if (!product) {
+      product = await this.prisma.product.findMany({
+        take: limit,
+        skip: offset,
+      });
+    }
 
     // Si no se encontro ningún producto con las operaciones anteriores se lanza la excepción.
     if (product.length === 0)

@@ -12,6 +12,7 @@ import { CreateUserDto, LoginUserDto } from './dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UUID } from 'crypto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 
 @Injectable()
 export class AuthService {
@@ -68,9 +69,11 @@ export class AuthService {
   }
 
   // Método para recuperar todos los usuarios.
-  async findAll() {
+  async findAll({ limit, offset }: PaginationDto) {
     const users = await this.prisma.user.findMany({
-      select: { email: true, name: true, role: true, isBaned: true },
+      select: { id: true, email: true, name: true, role: true, isBaned: true },
+      take: limit,
+      skip: offset,
     });
 
     if (!users) throw new NotFoundException('Not exists users.');

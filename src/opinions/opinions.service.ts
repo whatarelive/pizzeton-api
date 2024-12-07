@@ -7,6 +7,7 @@ import {
 import { Opinion as OpinionModel } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
+import { PaginationDto } from '../common/dto/paginationDto.dto';
 
 @Injectable()
 export class OpinionsService {
@@ -29,17 +30,21 @@ export class OpinionsService {
     }
   }
 
-  async findAll(): Promise<OpinionModel[]> {
-    const opinons = this.prisma.opinion.findMany();
+  async findAll({ limit, offset }: PaginationDto): Promise<OpinionModel[]> {
+    const opinons = await this.prisma.opinion.findMany({
+      take: limit,
+      skip: offset,
+    });
 
-    if (!opinons) throw new NotFoundException('Opinions not exists.');
+    if (!opinons || opinons.length === 0)
+      throw new NotFoundException('Opinions not exists.');
 
     return opinons;
   }
 
   async delete(id: UUID) {
     try {
-      return this.prisma.opinion.delete({
+      return await this.prisma.opinion.delete({
         where: { id },
       });
     } catch (error) {
