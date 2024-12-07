@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators';
 import { Opinion as OpinionModel } from '@prisma/client';
@@ -14,6 +15,7 @@ import { OpinionsService } from './opinions.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid_roles';
+import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 
 @Controller('opinions')
 export class OpinionsController {
@@ -29,8 +31,8 @@ export class OpinionsController {
   }
 
   @Get()
-  findAll(): Promise<OpinionModel[]> {
-    return this.opinionsService.findAll();
+  findAll(@Query() paginationDto: PaginationDto): Promise<OpinionModel[]> {
+    return this.opinionsService.findAll(paginationDto);
   }
 
   @Delete(':id')
