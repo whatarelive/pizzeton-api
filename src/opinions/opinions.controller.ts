@@ -13,6 +13,7 @@ import { Opinion as OpinionModel } from '@prisma/client';
 import { OpinionsService } from './opinions.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 
 @Controller('opinions')
 export class OpinionsController {
@@ -24,8 +25,7 @@ export class OpinionsController {
     @Body() createOpinionDto: CreateOpinionDto,
     @GetUser('id', ParseUUIDPipe) userId: UUID,
   ): Promise<OpinionModel> {
-    console.log(userId);
-    return this.opinionsService.create(createOpinionDto);
+    return this.opinionsService.create(userId, createOpinionDto);
   }
 
   @Get()
@@ -34,7 +34,7 @@ export class OpinionsController {
   }
 
   @Delete(':id')
-  @Auth()
+  @Auth(ValidRoles.admin)
   remove(@Param('id', ParseUUIDPipe) id: UUID): Promise<OpinionModel> {
     return this.opinionsService.delete(id);
   }

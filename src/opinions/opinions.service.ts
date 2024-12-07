@@ -1,5 +1,9 @@
-import { type UUID } from 'node:crypto';
-import { Injectable } from '@nestjs/common';
+import { randomUUID, type UUID } from 'node:crypto';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Opinion as OpinionModel } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
@@ -8,24 +12,48 @@ import { CreateOpinionDto } from './dto/create-opinion.dto';
 export class OpinionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create({}: CreateOpinionDto): Promise<OpinionModel> {
+  async create(
+    userId: UUID,
+    createOpinionDto: CreateOpinionDto,
+  ): Promise<OpinionModel> {
     try {
-      // return await this.prisma.opinion.create({
-      //   data: {},
-      // });
-      return;
+      return await this.prisma.opinion.create({
+        data: {
+          id: randomUUID(),
+          userId,
+          ...createOpinionDto,
+        },
+      });
     } catch (error) {
-      console.log(error);
+      this.handlerError(error);
     }
   }
 
   async findAll(): Promise<OpinionModel[]> {
-    return this.prisma.opinion.findMany();
+    const opinons = this.prisma.opinion.findMany();
+
+    if (!opinons) throw new NotFoundException('Opinions not exists.');
+
+    return opinons;
   }
 
   async delete(id: UUID) {
-    return this.prisma.opinion.delete({
-      where: { id },
-    });
+    try {
+      return this.prisma.opinion.delete({
+        where: { id },
+      });
+    } catch (error) {
+      this.handlerError(error);
+    }
+  }
+
+  private handlerError(error: any): never {
+    if (error.code === 'P2025') {
+      throw new NotFoundException(`Opinion with not exists.`);
+    }
+
+    throw new InternalServerErrorException(
+      `Can't creant Opinion - Check Server logs`,
+    );
   }
 }
