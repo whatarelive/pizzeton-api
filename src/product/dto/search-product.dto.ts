@@ -4,9 +4,9 @@ export class SearchProductDTO {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  search?: string;
+  readonly search?: string;
 
   @IsOptional()
   @IsEnum(['Pizza', 'Potres', 'Pastas', 'Bebidas'])
-  category?: string;
+  readonly category?: string;
 }
