@@ -4,11 +4,14 @@ import {
   BadRequestException,
   InternalServerErrorException,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { UUID } from 'crypto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -62,6 +65,29 @@ export class AuthService {
       ...user,
       token: this.genJwt({ id }),
     };
+  }
+
+  // Método para recuperar todos los usuarios.
+  async findAll() {
+    const users = await this.prisma.user.findMany({
+      select: { email: true, name: true, role: true, isBaned: true },
+    });
+
+    if (!users) throw new NotFoundException('Not exists users.');
+
+    return users;
+  }
+
+  // Método para actualizar el estado del usuario.
+  async update(id: UUID, updateUserDto: UpdateUserDto) {
+    try {
+      return await this.prisma.user.update({
+        where: { id },
+        data: updateUserDto,
+      });
+    } catch (error) {
+      this.handlerError(error);
+    }
   }
 
   // Método para generar el jwt del usuario.
