@@ -31,17 +31,18 @@ export class ProductService {
 
   // Método para extraer todos los productos de la BD.
   async findAll(
-    { category, search }: SearchProductDTO,
-    { limit, offset }: PaginationDto,
+    searchProductDto: SearchProductDTO,
+    paginationDto: PaginationDto,
   ): Promise<Product[]> {
+    const { category, search } = searchProductDto;
+    const { limit = 10, offset = 0 } = paginationDto;
+
     let product: Prisma.ProductCreateInput[];
 
     // Buscamos por la categoria si viene en la query.
     if (category && !search) {
       product = await this.prisma.product.findMany({
         where: { category },
-        take: limit,
-        skip: offset,
       });
     }
 

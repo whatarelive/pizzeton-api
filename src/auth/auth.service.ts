@@ -69,7 +69,9 @@ export class AuthService {
   }
 
   // Método para recuperar todos los usuarios.
-  async findAll({ limit, offset }: PaginationDto) {
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto;
+
     const users = await this.prisma.user.findMany({
       select: { id: true, email: true, name: true, role: true, isBaned: true },
       take: limit,
