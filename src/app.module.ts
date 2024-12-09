@@ -7,13 +7,11 @@ import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
-    ProductModule,
-    OpinionsModule,
     AuthModule,
     CommonModule,
     FilesModule,
+    ProductModule,
+    OpinionsModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

@@ -8,12 +8,13 @@ datasource db {
 }
 
 model Product {
-  id       String @id @unique
-  title    String @unique
-  subtitle String
-  category String
-  imgUrl   String
-  price    Int
+  id          String @id @unique
+  title       String @unique
+  subtitle    String
+  category    String
+  imgUrl      String
+  imgPublicId String
+  price       Int
 }
 
 model User {

@@ -19,12 +19,15 @@ export class CreateProductDTO {
   readonly subtitle: string;
 
   @IsString()
-  @IsEnum(['Pizza', 'Potres', 'Pastas', 'Bebidas'])
+  @IsEnum(['Pizza', 'Postres', 'Pastas', 'Bebidas'])
   readonly category: string;
 
   @IsString()
   @IsUrl()
   readonly imgUrl: string;
+
+  @IsString()
+  readonly image_publicId: string;
 
   @IsNumber()
   @IsInt()
