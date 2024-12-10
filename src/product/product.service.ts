@@ -8,7 +8,6 @@ import {
 import { Prisma, Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
-import type { IProduct } from './interfaces/product.interface';
 import { PaginationDto } from '../common/dto/paginationDto.dto';
 
 @Injectable()
@@ -18,12 +17,12 @@ export class ProductService {
   // Método para ingresar un nuevo producto en la BD.
   async create(createProduct: CreateProductDTO): Promise<Product> {
     try {
-      const product: IProduct = {
-        id: randomUUID(),
-        ...createProduct,
-      };
-
-      return await this.prisma.product.create({ data: product });
+      return await this.prisma.product.create({
+        data: {
+          id: randomUUID(),
+          ...createProduct,
+        },
+      });
     } catch (error) {
       this.handlerExceptions(error, createProduct.title);
     }

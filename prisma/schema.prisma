@@ -8,13 +8,27 @@ datasource db {
 }
 
 model Product {
-  id          String @id @unique
-  title       String @unique
+  id          String       @id @unique
+  title       String       @unique
   subtitle    String
-  category    String
   imgUrl      String
-  imgPublicId String
+  imgId       String
+  category    String
   price       Int
+  especiality Especiality?
+  prominent   Prominent?
+}
+
+model Especiality {
+  id          String  @id @unique
+  product     Product @relation(fields: [title], references: [id])
+  title       String  @unique
+  description String
+}
+
+model Prominent {
+  id      String  @id @unique
+  product Product @relation(fields: [id], references: [id])
 }
 
 model User {

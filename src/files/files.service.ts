@@ -14,4 +14,14 @@ export class FilesService {
 
     return { secure_url, public_id };
   }
+
+  async updateImage(id: string, file: Express.Multer.File) {
+    await this.deleteImage(id);
+
+    return await this.uploadImage(file);
+  }
+
+  async deleteImage(id: string) {
+    return await cloudinaryAPI.uploader.destroy(id);
+  }
 }
