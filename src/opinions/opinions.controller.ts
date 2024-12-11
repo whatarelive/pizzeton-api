@@ -35,6 +35,15 @@ export class OpinionsController {
     return this.opinionsService.findAll(paginationDto);
   }
 
+  @Get(':id')
+  @Auth(ValidRoles.admin)
+  findById(
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @Query() paginationDto: PaginationDto,
+  ) {
+    return this.opinionsService.findById(id, paginationDto);
+  }
+
   @Delete(':id')
   @Auth(ValidRoles.admin)
   remove(@Param('id', ParseUUIDPipe) id: UUID): Promise<OpinionModel> {

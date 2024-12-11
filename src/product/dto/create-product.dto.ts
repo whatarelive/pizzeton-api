@@ -27,7 +27,7 @@ export class CreateProductDTO {
   readonly imgUrl: string;
 
   @IsString()
-  readonly image_publicId: string;
+  readonly imgId: string;
 
   @IsNumber()
   @IsInt()

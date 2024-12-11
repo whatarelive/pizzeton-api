@@ -44,6 +44,26 @@ export class OpinionsService {
     return opinons;
   }
 
+  async findById(
+    id: UUID,
+    paginationDto: PaginationDto,
+  ): Promise<OpinionModel[]> {
+    const { limit = 10, offset = 0 } = paginationDto;
+
+    const opinions = await this.prisma.opinion.findMany({
+      where: {
+        userId: { equals: id },
+      },
+      take: limit,
+      skip: offset,
+    });
+
+    if (!opinions || opinions.length === 0)
+      throw new NotFoundException('Opinions not exists.');
+
+    return opinions;
+  }
+
   async delete(id: UUID) {
     try {
       return await this.prisma.opinion.delete({

@@ -5,10 +5,9 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { Prisma, Product } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
-import type { IProduct } from './interfaces/product.interface';
 import { PaginationDto } from '../common/dto/paginationDto.dto';
 
 @Injectable()
@@ -18,12 +17,12 @@ export class ProductService {
   // Método para ingresar un nuevo producto en la BD.
   async create(createProduct: CreateProductDTO): Promise<Product> {
     try {
-      const product: IProduct = {
-        id: randomUUID(),
-        ...createProduct,
-      };
-
-      return await this.prisma.product.create({ data: product });
+      return await this.prisma.product.create({
+        data: {
+          id: randomUUID(),
+          ...createProduct,
+        },
+      });
     } catch (error) {
       this.handlerExceptions(error, createProduct.title);
     }
@@ -37,12 +36,12 @@ export class ProductService {
     const { category, search } = searchProductDto;
     const { limit = 10, offset = 0 } = paginationDto;
 
-    let product: Prisma.ProductCreateInput[];
+    let product: Product[];
 
     // Buscamos por la categoria si viene en la query.
     if (category && !search) {
       product = await this.prisma.product.findMany({
-        where: { category },
+        where: { category, stock: true },
       });
     }
 
