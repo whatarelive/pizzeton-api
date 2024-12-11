@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { Prisma, Product } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
 import { PaginationDto } from '../common/dto/paginationDto.dto';
@@ -36,12 +36,12 @@ export class ProductService {
     const { category, search } = searchProductDto;
     const { limit = 10, offset = 0 } = paginationDto;
 
-    let product: Prisma.ProductCreateInput[];
+    let product: Product[];
 
     // Buscamos por la categoria si viene en la query.
     if (category && !search) {
       product = await this.prisma.product.findMany({
-        where: { category },
+        where: { category, stock: true },
       });
     }
 
