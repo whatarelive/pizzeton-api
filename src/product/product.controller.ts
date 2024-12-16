@@ -11,11 +11,12 @@ import {
   Query,
 } from '@nestjs/common';
 import { Product as ProductModel } from '@prisma/client';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ProductService } from './product.service';
-import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
-import { Auth } from 'src/auth/decorators';
-import { ValidRoles } from 'src/auth/interfaces/valid_roles';
+import { CreateProductDTO } from './dto/create-product.dto';
+import { UpdateProductDTO } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
+import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 
 @Controller('products')
 export class ProductController {
@@ -27,12 +28,14 @@ export class ProductController {
     return this.productService.create(createProduct);
   }
 
-  @Get() // Retorna todos los productos según el término de busqueda.
-  findAll(
-    @Query() searchProduct: SearchProductDTO,
-    @Query() paginationDto: PaginationDto,
-  ): Promise<ProductModel[]> {
-    return this.productService.findAll(searchProduct, paginationDto);
+  @Get() // Retorna todos los productos.
+  findAll(@Query() paginationDto: PaginationDto): Promise<ProductModel[]> {
+    return this.productService.findAll(paginationDto);
+  }
+
+  @Get(':category') // Retorna todos los productos de una categoria.
+  findByCategory(@Param('category') category: string) {
+    return this.productService.findByCategory(category);
   }
 
   @Get(':id') // Retorna el producto con ese id.

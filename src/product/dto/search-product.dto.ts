@@ -7,6 +7,6 @@ export class SearchProductDTO {
   readonly search?: string;
 
   @IsOptional()
-  @IsEnum(['Pizza', 'Potres', 'Pastas', 'Bebidas'])
-  readonly category?: string;
+  @IsEnum(['Pizzas', 'Potres', 'Pastas', 'Bebidas'])
+  readonly category: string;
 }

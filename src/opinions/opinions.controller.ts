@@ -9,7 +9,7 @@ import {
   ParseUUIDPipe,
   Query,
 } from '@nestjs/common';
-import { Auth } from 'src/auth/decorators';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Opinion as OpinionModel } from '@prisma/client';
 import { OpinionsService } from './opinions.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';

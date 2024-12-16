@@ -4,23 +4,17 @@ CREATE TABLE "Product" (
     "title" TEXT NOT NULL,
     "subtitle" TEXT NOT NULL,
     "imgUrl" TEXT NOT NULL,
-    "imgPublicId" TEXT NOT NULL,
+    "imgId" TEXT NOT NULL,
     "category" TEXT NOT NULL,
+    "stock" BOOLEAN NOT NULL DEFAULT true,
     "price" INTEGER NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "Especiality" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    CONSTRAINT "Especiality_title_fkey" FOREIGN KEY ("title") REFERENCES "Product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "Prominent" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    CONSTRAINT "Prominent_id_fkey" FOREIGN KEY ("id") REFERENCES "Product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "productId" TEXT NOT NULL,
+    CONSTRAINT "Prominent_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -50,13 +44,10 @@ CREATE UNIQUE INDEX "Product_id_key" ON "Product"("id");
 CREATE UNIQUE INDEX "Product_title_key" ON "Product"("title");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Especiality_id_key" ON "Especiality"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Especiality_title_key" ON "Especiality"("title");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Prominent_id_key" ON "Prominent"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Prominent_productId_key" ON "Prominent"("productId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_id_key" ON "User"("id");

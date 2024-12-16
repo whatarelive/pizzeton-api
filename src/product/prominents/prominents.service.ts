@@ -5,9 +5,9 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import { CreateProminentDto } from './dto/create-prominent.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
-import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ProminentsService {
@@ -36,6 +36,17 @@ export class ProminentsService {
     const prominents = await this.prisma.prominent.findMany({
       take: limit,
       skip: offset,
+      select: {
+        id: true,
+        product: {
+          select: {
+            title: true,
+            subtitle: true,
+            imgUrl: true,
+            price: true,
+          },
+        },
+      },
     });
 
     if (!prominents || prominents.length === 0) {
