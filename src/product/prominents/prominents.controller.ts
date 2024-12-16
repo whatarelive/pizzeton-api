@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ProminentsService } from './prominents.service';
 import { CreateProminentDto } from './dto/create-prominent.dto';
-import { Auth } from 'src/auth/decorators';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 import { PaginationDto } from '../../common/dto/paginationDto.dto';
 

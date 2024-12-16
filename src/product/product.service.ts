@@ -7,8 +7,9 @@ import {
 } from '@nestjs/common';
 import { Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { CreateProductDTO, UpdateProductDTO, SearchProductDTO } from './dto';
-import { PaginationDto } from '../common/dto/paginationDto.dto';
+import { CreateProductDTO } from './dto/create-product.dto';
+import { UpdateProductDTO } from './dto/update-product.dto';
+import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 
 @Injectable()
 export class ProductService {
@@ -28,50 +29,32 @@ export class ProductService {
     }
   }
 
+  async findByCategory(category: string) {
+    const products = await this.prisma.product.findMany({
+      where: { category, stock: true },
+    });
+
+    if (!products && products.length === 0) {
+      throw new NotFoundException(`Not exist products with ${category}`);
+    }
+
+    return products;
+  }
+
   // Método para extraer todos los productos de la BD.
-  async findAll(
-    searchProductDto: SearchProductDTO,
-    paginationDto: PaginationDto,
-  ): Promise<Product[]> {
-    const { category, search } = searchProductDto;
+  async findAll(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
 
-    let product: Product[];
-
-    // Buscamos por la categoria si viene en la query.
-    if (category && !search) {
-      product = await this.prisma.product.findMany({
-        where: { category, stock: true },
-      });
-    }
-
-    // Buscamos por la término de busqueda si viene en la query y no esta la categoria.
-    if (!product && search) {
-      product = await this.prisma.product.findMany({
-        where: {
-          OR: [
-            { title: { contains: search } },
-            { subtitle: { contains: search } },
-          ],
-        },
-        take: limit,
-        skip: offset,
-      });
-    }
-
-    // Si no se proporciona ningún término de busqueda o categoría se extraen todos los productos.
-    if (!product) {
-      product = await this.prisma.product.findMany({
-        take: limit,
-        skip: offset,
-      });
-    }
+    const products = await this.prisma.product.findMany({
+      take: limit,
+      skip: offset,
+    });
 
     // Si no se encontro ningún producto con las operaciones anteriores se lanza la excepción.
-    if (product.length === 0)
+    if (!products && products.length === 0)
       throw new NotFoundException('Products not exists.');
 
-    return product;
+    return products;
   }
 
   // Método para extraer el producto con ese ID de la BD.

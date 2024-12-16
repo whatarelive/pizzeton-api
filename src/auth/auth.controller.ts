@@ -1,3 +1,4 @@
+import type { UUID } from 'crypto';
 import {
   Controller,
   Post,
@@ -9,11 +10,12 @@ import {
   Query,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
-import { Auth } from './decorators';
-import { ValidRoles } from './interfaces/valid_roles';
-import { UUID } from 'crypto';
+import { Auth } from './decorators/auth.decorator';
+import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
+import { ValidRoles } from './interfaces/valid_roles';
 
 @Controller('auth')
 export class AuthController {

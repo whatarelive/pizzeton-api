@@ -16,15 +16,7 @@ model Product {
   category    String
   stock       Boolean      @default(true)
   price       Int
-  especiality Especiality?
   prominent   Prominent?
-}
-
-model Especiality {
-  id          String  @id @unique
-  product     Product @relation(fields: [title], references: [id])
-  title       String  @unique
-  description String
 }
 
 model Prominent {
