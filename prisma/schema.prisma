@@ -8,15 +8,23 @@ datasource db {
 }
 
 model Product {
-  id          String       @id @unique
-  title       String       @unique
+  id          String        @id @unique
+  title       String        @unique
   subtitle    String
   imgUrl      String
   imgId       String
   category    String
-  stock       Boolean      @default(true)
+  stock       Boolean       @default(true)
   price       Int
   prominent   Prominent?
+  agregations Agregations[]
+}
+
+model Agregations {
+  id      String    @id @unique
+  title   String    @unique
+  price   Int
+  product Product[]
 }
 
 model Prominent {
