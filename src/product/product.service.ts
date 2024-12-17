@@ -51,7 +51,7 @@ export class ProductService {
     });
 
     // Si no se encontro ningún producto con las operaciones anteriores se lanza la excepción.
-    if (!products && products.length === 0)
+    if (!products || products.length === 0)
       throw new NotFoundException('Products not exists.');
 
     return products;
