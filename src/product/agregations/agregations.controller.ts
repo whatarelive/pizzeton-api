@@ -36,12 +36,12 @@ export class AgregationsController {
     @Param('id', ParseUUIDPipe) id: UUID,
     @Body() updateAgregationDto: UpdateAgregationDto,
   ) {
-    return this.agregationsService.update(+id, updateAgregationDto);
+    return this.agregationsService.update(id, updateAgregationDto);
   }
 
   @Delete(':id')
   @Auth(ValidRoles.admin)
   remove(@Param('id', ParseUUIDPipe) id: UUID) {
-    return this.agregationsService.remove(+id);
+    return this.agregationsService.remove(id);
   }
 }

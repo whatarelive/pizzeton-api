@@ -1,7 +1,8 @@
+import { randomUUID } from 'crypto';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { productsSeed } from './data/products';
-import { randomUUID } from 'crypto';
+import { aggregationsSeed } from './data/agregations';
 
 @Injectable()
 export class SeedService {
@@ -13,11 +14,12 @@ export class SeedService {
 
     await this.insertNewProducts();
     await this.insertNewProminentProduct();
+    await this.insertNewAgregations();
 
     return `Seed executed`;
   }
 
-  async insertNewProducts() {
+  private async insertNewProducts() {
     for (const product of productsSeed) {
       await this.prisma.product.create({
         data: {
@@ -28,7 +30,7 @@ export class SeedService {
     }
   }
 
-  async insertNewProminentProduct() {
+  private async insertNewProminentProduct() {
     for (const product of productsSeed.slice(3, 7)) {
       await this.prisma.prominent.create({
         data: {
@@ -38,6 +40,19 @@ export class SeedService {
               title: product.title,
             },
           },
+        },
+      });
+    }
+  }
+
+  private async insertNewAgregations() {
+    await this.prisma.agregations.deleteMany();
+
+    for (const agregation of aggregationsSeed) {
+      await this.prisma.agregations.create({
+        data: {
+          id: randomUUID(),
+          ...agregation,
         },
       });
     }
