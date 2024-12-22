@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import { productsSeed } from './data/products';
 import { aggregationsSeed } from './data/agregations';
 import { eventsSeed } from './data/events';
+import { prominentsSeed } from './data/prominenets';
 
 @Injectable()
 export class SeedService {
@@ -33,7 +34,7 @@ export class SeedService {
   }
 
   private async insertNewProminentProduct() {
-    for (const product of productsSeed.slice(3, 7)) {
+    for (const product of prominentsSeed) {
       await this.prisma.prominent.create({
         data: {
           id: randomUUID(),
