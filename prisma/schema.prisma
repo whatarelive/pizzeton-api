@@ -17,14 +17,12 @@ model Product {
   stock       Boolean       @default(true)
   price       Int
   prominent   Prominent?
-  agregations Agregations[]
 }
 
 model Agregations {
   id      String    @id @unique
   title   String    @unique
   price   Int
-  product Product[]
 }
 
 model Prominent {
@@ -50,4 +48,13 @@ model Opinion {
   userId     String
   valoration Int
   opinion    String
+}
+
+model Event {
+  id         String   @id @unique
+  title      String   @unique
+  subtitle   String
+  imgUrl     String
+  imgId      String
+  active     Boolean  @default(true)
 }

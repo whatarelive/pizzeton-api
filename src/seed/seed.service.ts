@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { productsSeed } from './data/products';
 import { aggregationsSeed } from './data/agregations';
+import { eventsSeed } from './data/events';
 
 @Injectable()
 export class SeedService {
@@ -15,6 +16,7 @@ export class SeedService {
     await this.insertNewProducts();
     await this.insertNewProminentProduct();
     await this.insertNewAgregations();
+    await this.insertNewEvents();
 
     return `Seed executed`;
   }
@@ -53,6 +55,20 @@ export class SeedService {
         data: {
           id: randomUUID(),
           ...agregation,
+        },
+      });
+    }
+  }
+
+  private async insertNewEvents() {
+    await this.prisma.event.deleteMany();
+
+    for (const event of eventsSeed) {
+      await this.prisma.event.create({
+        data: {
+          id: randomUUID(),
+          imgId: 'event',
+          ...event,
         },
       });
     }

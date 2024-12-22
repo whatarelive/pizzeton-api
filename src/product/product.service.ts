@@ -32,6 +32,7 @@ export class ProductService {
   async findByCategory(category: string) {
     const products = await this.prisma.product.findMany({
       where: { category, stock: true },
+      orderBy: { price: 'asc' },
     });
 
     if (!products && products.length === 0) {

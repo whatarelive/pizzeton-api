@@ -31,7 +31,7 @@ export class OpinionsController {
   }
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDto): Promise<OpinionModel[]> {
+  findAll(@Query() paginationDto: PaginationDto) {
     return this.opinionsService.findAll(paginationDto);
   }
 

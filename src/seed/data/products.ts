@@ -4,8 +4,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza Napolitana',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca)',
+    subtitle: 'Salsa de tomate, queso gouda, pesto',
     price: 715.0,
   },
   {
@@ -13,8 +12,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza Chorizo',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca) y chorizo ahumado',
+    subtitle: 'Salsa de tomate, queso gouda, pesto y chorizo ahumado',
     price: 945.0,
   },
   {
@@ -22,8 +20,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Jamón',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca) y jamón ahumado',
+    subtitle: 'Salsa de tomate, queso gouda, pesto y jamón ahumado',
     price: 955.0,
   },
   {
@@ -31,8 +28,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Champiñones',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca), champiñones',
+    subtitle: 'Salsa de tomate, queso gouda, pesto, champiñones',
     price: 990.0,
   },
   {
@@ -40,8 +36,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Estrella',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca), jamón',
+    subtitle: 'Salsa de tomate, queso gouda, pesto, jamón',
     price: 1050.0,
   },
   {
@@ -49,8 +44,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Atún',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca), atún',
+    subtitle: 'Salsa de tomate, queso gouda, pesto, atún',
     price: 1210.0,
   },
   {
@@ -66,8 +60,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Lomo Ahumado',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca) y lomo ahumado',
+    subtitle: 'Salsa de tomate, queso gouda, pesto y lomo ahumado',
     price: 1370.0,
   },
   {
@@ -75,8 +68,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Jamón Serrano',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca) y jamón serrano',
+    subtitle: 'Salsa de tomate, queso gouda, pesto y jamón serrano',
     price: 1415.0,
   },
   {
@@ -84,8 +76,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza Vegtariana',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca), cebolla, ají y aceitunas',
+    subtitle: 'Salsa de tomate, queso gouda, pesto, cebolla, ají y aceitunas',
     price: 1470.0,
   },
   {
@@ -93,8 +84,7 @@ export const productsSeed = [
     imgId: 'product12',
     category: 'Pizzas',
     title: 'Pizza de Camarones',
-    subtitle:
-      'Salsa de tomate, queso gouda, pesto (aceite de ajo, perejil y albahaca) y camarones',
+    subtitle: 'Salsa de tomate, queso gouda, pesto y camarones',
     price: 1695.0,
   },
   {

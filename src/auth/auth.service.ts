@@ -4,7 +4,6 @@ import {
   Injectable,
   BadRequestException,
   InternalServerErrorException,
-  UnauthorizedException,
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -51,20 +50,28 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const { email, password } = loginUserDto;
 
-    const { id, ...user } = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
     });
 
     if (!user)
-      throw new UnauthorizedException('Credentials are not valid (email).');
+      throw new BadRequestException({
+        field: 'email',
+        message: 'Correo electronico incorrecto.',
+      });
 
     if (!bcryptjs.compareSync(password, user.password))
-      throw new UnauthorizedException('Credentials are not valid (password).');
+      throw new BadRequestException({
+        field: 'password',
+        message: 'Contraseña Incorrecta.',
+      });
+
+    const { id, ...rest } = user;
 
     delete user.password;
 
     return {
-      ...user,
+      ...rest,
       token: this.genJwt({ id }),
     };
   }
@@ -104,7 +111,10 @@ export class AuthService {
   // Método para manejar las excepciones no controladas.
   private handlerError(error: any): never {
     if (error.code === 'P2002') {
-      throw new BadRequestException(`Value of ${error.meta.target} is exists.`);
+      throw new BadRequestException({
+        field: error.meta.target[0],
+        message: `Este ${error.meta.target} ya esta ocupado.`,
+      });
     }
 
     throw new InternalServerErrorException(

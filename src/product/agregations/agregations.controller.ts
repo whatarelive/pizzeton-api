@@ -15,7 +15,7 @@ import { UpdateAgregationDto } from './dto/update-agregation.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 
-@Controller('agregations')
+@Controller('/product/agregations')
 export class AgregationsController {
   constructor(private readonly agregationsService: AgregationsService) {}
 

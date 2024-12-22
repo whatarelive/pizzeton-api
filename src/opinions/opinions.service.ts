@@ -30,10 +30,17 @@ export class OpinionsService {
     }
   }
 
-  async findAll(paginationDto: PaginationDto): Promise<OpinionModel[]> {
+  async findAll(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
 
     const opinons = await this.prisma.opinion.findMany({
+      select: {
+        valoration: true,
+        opinion: true,
+        date: true,
+        user: { select: { name: true } },
+      },
+      orderBy: { date: 'asc' },
       take: limit,
       skip: offset,
     });
