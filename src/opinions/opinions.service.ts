@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Opinion as OpinionModel } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
 import { PaginationDto } from '../common/dto/paginationDto.dto';
 

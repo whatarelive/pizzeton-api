@@ -6,6 +6,7 @@ import { CommonModule } from './common/common.module';
 import { FilesModule } from './files/files.module';
 import { SeedModule } from './seed/seed.module';
 import { EventsModule } from './events/events.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { EventsModule } from './events/events.module';
     OpinionsModule,
     EventsModule,
     SeedModule,
+    PrismaModule,
   ],
 })
 export class AppModule {}

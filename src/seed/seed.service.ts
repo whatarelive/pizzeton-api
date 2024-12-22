@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { productsSeed } from './data/products';
 import { aggregationsSeed } from './data/agregations';
 import { eventsSeed } from './data/events';

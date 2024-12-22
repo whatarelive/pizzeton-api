@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateAgregationDto } from './dto/create-agregation.dto';
 import { UpdateAgregationDto } from './dto/update-agregation.dto';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AgregationsService {
