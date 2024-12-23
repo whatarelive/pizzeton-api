@@ -136,7 +136,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Malteada',
@@ -145,7 +145,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Refresco Naranja',
@@ -154,7 +154,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Refresco Limón',
@@ -163,7 +163,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Coca Cola',
@@ -172,7 +172,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Refresco Energizante',
@@ -181,7 +181,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Malta Importada',
@@ -190,7 +190,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Malta Nacional',
@@ -199,7 +199,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Cerveza Importada',
@@ -208,7 +208,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Cerveza Nacional',
@@ -217,7 +217,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Postres',
     title: 'Focaccia de Nutela',
@@ -226,7 +226,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Postres',
     title: 'Copa de Helado',
@@ -235,7 +235,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      '/rhttps://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Postres',
     title: 'Canoa de Helado',
