@@ -31,6 +31,11 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
+  @Get('test') // Recupera la lista de ususrios.
+  find() {
+    return 'Hola Mundo';
+  }
+
   @Get('users') // Recupera la lista de ususrios.
   @Auth(ValidRoles.admin)
   findAll(@Query() paginationDto: PaginationDto) {
