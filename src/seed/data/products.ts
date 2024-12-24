@@ -1,7 +1,7 @@
 export const productsSeed = [
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pizzas',
     title: 'Pizza Napolitana',
@@ -10,7 +10,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pizzas',
     title: 'Pizza Chorizo',
@@ -19,7 +19,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734889594/pizzeton/products/h4nocswx8lei4dpay2en.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734889594/pizzeton/products/h4nocswx8lei4dpay2en.jpg',
     imgId: 'pizzeton/products/h4nocswx8lei4dpay2en',
     category: 'Pizzas',
     title: 'Pizza de Jamón',
@@ -28,7 +28,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pizzas',
     title: 'Pizza de Champiñones',
@@ -37,7 +37,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734882847/pizzeton/products/lk0f0ewxxna2zj4vunmc.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734882847/pizzeton/products/lk0f0ewxxna2zj4vunmc.jpg',
     imgId: 'pizzeton/products/lk0f0ewxxna2zj4vunmc',
     category: 'Pizzas',
     title: 'Pizza de Estrella',
@@ -46,7 +46,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pizzas',
     title: 'Pizza de Atún',
@@ -55,7 +55,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pizzas',
     title: 'Pizza de Hawaiana',
@@ -64,7 +64,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734884394/pizzeton/products/bhjwn3jksaibtudx8cfr.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734884394/pizzeton/products/bhjwn3jksaibtudx8cfr.jpg',
     imgId: 'pizzeton/products/bhjwn3jksaibtudx8cfr',
     category: 'Pizzas',
     title: 'Pizza de Lomo Ahumado',
@@ -73,7 +73,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pizzas',
     title: 'Pizza de Jamón Serrano',
@@ -82,7 +82,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734889578/pizzeton/products/nxpgrn7x4knu7rd8ysdq.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734889578/pizzeton/products/nxpgrn7x4knu7rd8ysdq.jpg',
     imgId: 'pizzeton/products/nxpgrn7x4knu7rd8ysdq',
     category: 'Pizzas',
     title: 'Pizza Vegtariana',
@@ -91,7 +91,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734889633/pizzeton/products/uiuguvz2h70dplxvwz7k.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734889633/pizzeton/products/uiuguvz2h70dplxvwz7k.jpg',
     imgId: 'pizzeton/products/uiuguvz2h70dplxvwz7k',
     category: 'Pizzas',
     title: 'Pizza de Camarones',
@@ -100,7 +100,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pastas',
     title: 'Espagueti Napolitano',
@@ -109,7 +109,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pastas',
     title: 'Cannelones',
@@ -118,7 +118,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pastas',
     title: 'Lasaña Boloñesa',
@@ -127,7 +127,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Pastas',
     title: 'Lasaña de Jamón',
@@ -136,7 +136,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Malteada',
@@ -145,7 +145,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Refresco Naranja',
@@ -154,7 +154,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Refresco Limón',
@@ -163,7 +163,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Coca Cola',
@@ -172,7 +172,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Refresco Energizante',
@@ -181,7 +181,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Malta Importada',
@@ -190,7 +190,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Malta Nacional',
@@ -199,7 +199,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Cerveza Importada',
@@ -208,7 +208,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Bebidas',
     title: 'Cerveza Nacional',
@@ -217,7 +217,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Postres',
     title: 'Focaccia de Nutela',
@@ -226,7 +226,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Postres',
     title: 'Copa de Helado',
@@ -235,7 +235,7 @@ export const productsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
     imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
     category: 'Postres',
     title: 'Canoa de Helado',
