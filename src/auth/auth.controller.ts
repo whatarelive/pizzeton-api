@@ -16,6 +16,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 import { ValidRoles } from './interfaces/valid_roles';
+import { GetUser } from './decorators/get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -31,9 +32,10 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
-  @Get('test') // Recupera la lista de ususrios.
-  find() {
-    return 'Hola Mundo';
+  @Get('token') // Crea un nuevo token.
+  @Auth(ValidRoles.admin)
+  createNewToken(@GetUser('id', ParseUUIDPipe) id: UUID) {
+    return this.authService.createNewToken(id);
   }
 
   @Get('users') // Recupera la lista de ususrios.

@@ -76,6 +76,23 @@ export class AuthService {
     };
   }
 
+  // Método para revalidar el token.
+  async createNewToken(id: UUID) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+        select: { name: true, isBaned: true },
+      });
+
+      return {
+        ...user,
+        token: this.genJwt({ id }),
+      };
+    } catch (error) {
+      this.handlerError(error);
+    }
+  }
+
   // Método para recuperar todos los usuarios.
   async findAll(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;

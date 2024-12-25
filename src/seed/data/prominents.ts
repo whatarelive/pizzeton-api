@@ -19,8 +19,8 @@ export const prominentsSeed = [
   },
   {
     imgUrl:
-      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734889578/pizzeton/products/nxpgrn7x4knu7rd8ysdq.jpg',
-    imgId: 'pizzeton/products/nxpgrn7x4knu7rd8ysdq',
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734889578/pizzeton/products/lqbu8tfxhcqlgamueblf.jpg',
+    imgId: 'pizzeton/products/lqbu8tfxhcqlgamueblf',
     category: 'Pizzas',
     title: 'Pizza Vegtariana',
     subtitle: 'Salsa de tomate, queso gouda, pesto, cebolla, ají y aceitunas',
