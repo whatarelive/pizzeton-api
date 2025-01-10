@@ -17,6 +17,7 @@ import { CreateProductDTO } from './dto/create-product.dto';
 import { UpdateProductDTO } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 import { ValidRoles } from 'src/auth/interfaces/valid_roles';
+import { FilterDto } from 'src/common/dto/filterDto.dto';
 
 @Controller('products')
 export class ProductController {
@@ -28,9 +29,25 @@ export class ProductController {
     return this.productService.create(createProduct);
   }
 
+  @Get('/size')
+  // @Auth(ValidRoles.admin)
+  findTotalProducts(@Query() filterDto: FilterDto) {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const data = await this.productService.findTotalProducts(filterDto);
+        resolve(data);
+      }, 5200);
+    });
+  }
+
   @Get() // Retorna todos los productos.
   findAll(@Query() paginationDto: PaginationDto): Promise<ProductModel[]> {
-    return this.productService.findAll(paginationDto);
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const data = await this.productService.findAll(paginationDto);
+        resolve(data);
+      }, 5200);
+    });
   }
 
   @Get(':category') // Retorna todos los productos de una categoria.

@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ErrorHandler } from './helpers/ErrorsHandler';
 
-@Module({})
+@Module({
+  providers: [ErrorHandler],
+  exports: [ErrorHandler],
+})
 export class CommonModule {}

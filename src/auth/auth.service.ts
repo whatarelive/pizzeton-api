@@ -3,7 +3,6 @@ import * as bcryptjs from 'bcryptjs';
 import {
   Injectable,
   BadRequestException,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -13,12 +12,14 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwt: JwtService,
+    private readonly errorHandler: ErrorHandler,
   ) {}
 
   // Método para manejar el registro del usuario.
@@ -42,7 +43,7 @@ export class AuthService {
         token: this.genJwt({ id }),
       };
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'User');
     }
   }
 
@@ -89,7 +90,7 @@ export class AuthService {
         token: this.genJwt({ id }),
       };
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'User');
     }
   }
 
@@ -116,26 +117,12 @@ export class AuthService {
         data: updateUserDto,
       });
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'User');
     }
   }
 
   // Método para generar el jwt del usuario.
   private genJwt(payload: JwtPayload) {
     return this.jwt.sign(payload);
-  }
-
-  // Método para manejar las excepciones no controladas.
-  private handlerError(error: any): never {
-    if (error.code === 'P2002') {
-      throw new BadRequestException({
-        field: error.meta.target[0],
-        message: `Este ${error.meta.target} ya esta ocupado.`,
-      });
-    }
-
-    throw new InternalServerErrorException(
-      `Can't create or read User - Check Server logs`,
-    );
   }
 }

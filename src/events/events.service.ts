@@ -1,17 +1,16 @@
 import { randomUUID, type UUID } from 'crypto';
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
 
 @Injectable()
 export class EventsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly errorHandler: ErrorHandler,
+  ) {}
 
   async create(createEventDto: CreateEventDto) {
     try {
@@ -22,7 +21,7 @@ export class EventsService {
         },
       });
     } catch (error) {
-      console.log(error);
+      this.errorHandler.purge(error, 'Event');
     }
   }
 
@@ -47,7 +46,7 @@ export class EventsService {
         },
       });
     } catch (error) {
-      this.handlerExceptions(error);
+      this.errorHandler.purge(error, 'Event');
     }
   }
 
@@ -57,24 +56,7 @@ export class EventsService {
         where: { id },
       });
     } catch (error) {
-      this.handlerExceptions(error);
+      this.errorHandler.purge(error, 'Event');
     }
-  }
-
-  // Método para manejar las excepciones no controladas
-  private handlerExceptions(error: any, value?: any): never {
-    if (error.code === 'P2002') {
-      throw new BadRequestException(
-        `Event with ${error.meta.target}: ${value} is exists.`,
-      );
-    }
-
-    if (error.code === 'P2025') {
-      throw new NotFoundException(`Event with id: ${value} not exists.`);
-    }
-
-    throw new InternalServerErrorException(
-      `Can't creant Event - Check Server logs`,
-    );
   }
 }

@@ -1,17 +1,16 @@
 import { randomUUID, type UUID } from 'node:crypto';
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProminentDto } from './dto/create-prominent.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
+import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
 
 @Injectable()
 export class ProminentsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly errorHandler: ErrorHandler,
+  ) {}
 
   async create(createProminentDto: CreateProminentDto) {
     try {
@@ -26,7 +25,7 @@ export class ProminentsService {
         },
       });
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'Prominent Product');
     }
   }
 
@@ -62,23 +61,7 @@ export class ProminentsService {
         where: { id },
       });
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'Prominent Product');
     }
-  }
-
-  private handlerError(error: any) {
-    if (error.code === 'P2002') {
-      throw new BadRequestException(
-        `Prominent Product with ${error.meta.target} is exists.`,
-      );
-    }
-
-    if (error.code === 'P2025') {
-      throw new NotFoundException(`Prominent Product not exists.`);
-    }
-
-    throw new InternalServerErrorException(
-      `Can't creant Product - Check Server logs`,
-    );
   }
 }

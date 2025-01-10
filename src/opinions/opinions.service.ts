@@ -1,22 +1,18 @@
 import { randomUUID, type UUID } from 'node:crypto';
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
-import { Opinion as OpinionModel } from '@prisma/client';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
 import { PaginationDto } from '../common/dto/paginationDto.dto';
+import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
 
 @Injectable()
 export class OpinionsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly errorHandler: ErrorHandler,
+  ) {}
 
-  async create(
-    userId: UUID,
-    createOpinionDto: CreateOpinionDto,
-  ): Promise<OpinionModel> {
+  async create(userId: UUID, createOpinionDto: CreateOpinionDto) {
     try {
       return await this.prisma.opinion.create({
         data: {
@@ -26,7 +22,7 @@ export class OpinionsService {
         },
       });
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'Opinions');
     }
   }
 
@@ -51,10 +47,7 @@ export class OpinionsService {
     return opinons;
   }
 
-  async findById(
-    id: UUID,
-    paginationDto: PaginationDto,
-  ): Promise<OpinionModel[]> {
+  async findById(id: UUID, paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
 
     const opinions = await this.prisma.opinion.findMany({
@@ -77,17 +70,7 @@ export class OpinionsService {
         where: { id },
       });
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler.purge(error, 'Opinions');
     }
-  }
-
-  private handlerError(error: any): never {
-    if (error.code === 'P2025') {
-      throw new NotFoundException(`Opinion with not exists.`);
-    }
-
-    throw new InternalServerErrorException(
-      `Can't creant Opinion - Check Server logs`,
-    );
   }
 }

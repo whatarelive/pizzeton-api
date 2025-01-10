@@ -1,17 +1,16 @@
 import { randomUUID, type UUID } from 'crypto';
-import {
-  Injectable,
-  BadRequestException,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAgregationDto } from './dto/create-agregation.dto';
 import { UpdateAgregationDto } from './dto/update-agregation.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
 
 @Injectable()
 export class AgregationsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly errorHandler: ErrorHandler,
+  ) {}
 
   async create(createAgregationDto: CreateAgregationDto) {
     try {
@@ -22,7 +21,7 @@ export class AgregationsService {
         },
       });
     } catch (error) {
-      this.handlerExceptions(error, createAgregationDto.title);
+      this.errorHandler.purge(error, 'Agregations');
     }
   }
 
@@ -44,7 +43,7 @@ export class AgregationsService {
         },
       });
     } catch (error) {
-      this.handlerExceptions(error);
+      this.errorHandler.purge(error, 'Agregations');
     }
   }
 
@@ -54,24 +53,7 @@ export class AgregationsService {
         where: { id },
       });
     } catch (error) {
-      this.handlerExceptions(error);
+      this.errorHandler.purge(error, 'Agregations');
     }
-  }
-
-  // Método para manejar las excepciones no controladas
-  private handlerExceptions(error: any, value?: any): never {
-    if (error.code === 'P2002') {
-      throw new BadRequestException(
-        `Agregation with ${error.meta.target}: ${value} is exists.`,
-      );
-    }
-
-    if (error.code === 'P2025') {
-      throw new NotFoundException(`Agregation with id: ${value} not exists.`);
-    }
-
-    throw new InternalServerErrorException(
-      `Can't creant Agregation - Check Server logs`,
-    );
   }
 }
