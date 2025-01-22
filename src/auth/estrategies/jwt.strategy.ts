@@ -23,8 +23,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (!user) throw new UnauthorizedException('Token not valid.');
 
-    if (user.isBaned)
-      throw new UnauthorizedException('User is baned, talk with an admin.');
+    if (!user.isActive)
+      throw new UnauthorizedException(
+        'User is not active, talk with an admin.',
+      );
 
     return user;
   }

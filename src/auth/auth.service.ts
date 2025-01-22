@@ -25,13 +25,12 @@ export class AuthService {
   // Método para manejar el registro del usuario.
   async create(createUserDto: CreateUserDto) {
     try {
-      const { password, email, name } = createUserDto;
+      const { password, name } = createUserDto;
 
       const { id, ...user } = await this.prisma.user.create({
         data: {
           id: crypto.randomUUID(),
           name: name.trim(),
-          email: email.toLocaleLowerCase().trim(),
           password: bcryptjs.hashSync(password, 5),
         },
       });
@@ -49,10 +48,10 @@ export class AuthService {
 
   // Método para manejar el inicio de sesion del usuario.
   async login(loginUserDto: LoginUserDto) {
-    const { email, password } = loginUserDto;
+    const { name, password } = loginUserDto;
 
     const user = await this.prisma.user.findUnique({
-      where: { email },
+      where: { name },
     });
 
     if (!user)
@@ -82,7 +81,7 @@ export class AuthService {
     try {
       const user = await this.prisma.user.findUnique({
         where: { id },
-        select: { name: true, isBaned: true },
+        select: { name: true, isActive: true },
       });
 
       return {
@@ -99,7 +98,7 @@ export class AuthService {
     const { limit = 10, offset = 0 } = paginationDto;
 
     const users = await this.prisma.user.findMany({
-      select: { id: true, email: true, name: true, role: true, isBaned: true },
+      select: { id: true, name: true, role: true, isActive: true },
       take: limit,
       skip: offset,
     });
