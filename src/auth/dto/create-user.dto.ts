@@ -1,18 +1,9 @@
-import {
-  IsEmail,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
   @MinLength(3)
   name: string;
-
-  @IsEmail()
-  email: string;
 
   @IsString()
   @MinLength(5)
