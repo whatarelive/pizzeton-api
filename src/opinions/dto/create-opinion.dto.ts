@@ -4,6 +4,9 @@ export class CreateOpinionDto {
   @IsDate()
   readonly date: Date;
 
+  @IsString()
+  readonly user: string;
+
   @IsNumber()
   @IsInt()
   @Min(1)
