@@ -25,4 +25,16 @@ export class PaginationDto {
   @IsNumber()
   @Min(0)
   readonly offset?: number;
+
+  @IsOptional()
+  @IsString()
+  readonly order?: 'asc' | 'desc';
+
+  @IsOptional()
+  @IsString()
+  readonly field?: string;
+
+  @IsOptional()
+  @IsString()
+  readonly stock?: string;
 }

@@ -12,11 +12,6 @@ async function bootstrap() {
     origin: '*',
   });
 
-  // app.use(async (req, res, next) => {
-  //   await libsql.sync();
-  //   next();
-  // });
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

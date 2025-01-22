@@ -5,7 +5,6 @@ import { CreateProductDTO } from './dto/create-product.dto';
 import { UpdateProductDTO } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
-import { FilterDto } from 'src/common/dto/filterDto.dto';
 
 @Injectable()
 export class ProductService {
@@ -28,62 +27,32 @@ export class ProductService {
     }
   }
 
-  async findByCategory(category: string) {
-    const products = await this.prisma.product.findMany({
-      where: { category, stock: true },
-      orderBy: { price: 'asc' },
-    });
-
-    if (!products && products.length === 0) {
-      throw new NotFoundException(`Not exist products with ${category}`);
-    }
-
-    return products;
-  }
-
   // Método para extraer todos los productos de la BD.
   async findAll(paginationDto: PaginationDto) {
-    const { limit = 10, offset = 0, search, category } = paginationDto;
+    const {
+      limit,
+      offset,
+      search = '',
+      category = '',
+      field,
+      order,
+      stock,
+    } = paginationDto;
 
-    let products: any;
-
-    if (search && !category) {
-      products = await this.prisma.product.findMany({
-        take: limit,
-        skip: offset,
-        where: {
-          title: {
-            contains: search,
-          },
+    return await this.prisma.product.findMany({
+      take: limit,
+      skip: offset,
+      orderBy: { [`${field}`]: order },
+      where: {
+        title: {
+          contains: search,
         },
-      });
-    } else if (category && !search) {
-      products = await this.prisma.product.findMany({
-        take: limit,
-        skip: offset,
-        where: {
-          category,
+        category: {
+          contains: category,
         },
-      });
-    } else if (category && search) {
-      products = await this.prisma.product.findMany({
-        take: limit,
-        skip: offset,
-        where: {
-          title: {
-            contains: search,
-          },
-          category,
-        },
-      });
-    } else {
-      products = await this.prisma.product.findMany({
-        take: limit,
-        skip: offset,
-      });
-    }
-
-    return products;
+        stock: Boolean(stock),
+      },
+    });
   }
 
   // Método para extraer el producto con ese ID de la BD.
@@ -98,8 +67,8 @@ export class ProductService {
     return product;
   }
 
-  async findTotalProducts(filterDto: FilterDto) {
-    const { search, category } = filterDto;
+  async findTotalProducts(paginationDto: PaginationDto) {
+    const { search, category } = paginationDto;
 
     if (search && !category) {
       return await this.prisma.product.count({
@@ -109,7 +78,9 @@ export class ProductService {
           },
         },
       });
-    } else if (category && !search) {
+    }
+
+    if (category && !search) {
       return await this.prisma.product.count({
         where: {
           category: category,
@@ -117,9 +88,7 @@ export class ProductService {
       });
     }
 
-    return await this.prisma.product.count({
-      where: undefined,
-    });
+    return await this.prisma.product.count();
   }
 
   // Método para actualizar un producto de la BD.
