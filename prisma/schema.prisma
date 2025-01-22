@@ -35,18 +35,14 @@ model Prominent {
 model User {
   id       String    @id @unique
   name     String    @unique
-  email    String    @unique
   password String
   role     String    @default("user")
-  isBaned  Boolean   @default(false)
-  Opinion  Opinion[]
 }
 
 model Opinion {
   id         String   @id @unique
   date       DateTime
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
+  user       String
   valoration Int
   opinion    String
 }

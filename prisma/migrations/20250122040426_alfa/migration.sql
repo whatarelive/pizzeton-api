@@ -28,20 +28,17 @@ CREATE TABLE "Prominent" (
 CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "role" TEXT NOT NULL DEFAULT 'user',
-    "isBaned" BOOLEAN NOT NULL DEFAULT false
+    "role" TEXT NOT NULL DEFAULT 'user'
 );
 
 -- CreateTable
 CREATE TABLE "Opinion" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "date" DATETIME NOT NULL,
-    "userId" TEXT NOT NULL,
+    "user" TEXT NOT NULL,
     "valoration" INTEGER NOT NULL,
-    "opinion" TEXT NOT NULL,
-    CONSTRAINT "Opinion_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "opinion" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -77,9 +74,6 @@ CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_name_key" ON "User"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Opinion_id_key" ON "Opinion"("id");
