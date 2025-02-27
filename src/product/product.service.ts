@@ -29,28 +29,17 @@ export class ProductService {
 
   // Método para extraer todos los productos de la BD.
   async findAll(paginationDto: PaginationDto) {
-    const {
-      limit,
-      offset,
-      search = '',
-      category = '',
-      field,
-      order,
-      stock,
-    } = paginationDto;
+    const { category } = paginationDto;
+
+    if (!category) {
+      return await this.prisma.product.findMany();
+    }
 
     return await this.prisma.product.findMany({
-      take: limit,
-      skip: offset,
-      orderBy: { [`${field}`]: order },
       where: {
-        title: {
-          contains: search,
-        },
         category: {
           contains: category,
         },
-        stock: Boolean(stock),
       },
     });
   }
