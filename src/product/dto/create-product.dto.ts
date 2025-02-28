@@ -19,7 +19,7 @@ export class CreateProductDTO {
   readonly subtitle: string;
 
   @IsString()
-  @IsEnum(['Pizza', 'Postres', 'Pastas', 'Bebidas'])
+  @IsEnum(['Pizza', 'Postres', 'Pastas', 'Bebidas', 'Otros'])
   readonly category: string;
 
   @IsString()
