@@ -7,45 +7,47 @@ import {
   Patch,
   Param,
   ParseUUIDPipe,
-  Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { Auth } from './decorators/auth.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginationDto } from 'src/common/dto/paginationDto.dto';
-import { ValidRoles } from './interfaces/valid_roles';
 import { GetUser } from './decorators/get-user.decorator';
 
+/**
+ * Controlador de Autenticación
+ *
+ * @description Controlador que maneja todas las operaciones relacionadas con la autenticación de usuarios,
+ * incluyendo registro, inicio de sesión, generación de tokens y gestión de estados de usuario.
+ */
 @Controller('auth')
 export class AuthController {
+  // Se istancia el servicio de módulo de Auth
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register') // Crea un nuevo usuario.
+  // Crea un nuevo usuario en el sistema
+  @Post('register')
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.authService.create(createUserDto);
   }
 
-  @Post('login') // Crea la sesion del usuario.
-  loginUser(@Body() loginUserDto: LoginUserDto) {
+  // Inicia sesión de un usuario existente
+  @Post('login')
+  loginUser(@Body() loginUserDto: CreateUserDto) {
     return this.authService.login(loginUserDto);
   }
 
-  @Get('token') // Crea un nuevo token.
-  @Auth(ValidRoles.admin)
+  // Genera un nuevo token de acceso para un usuario autenticado
+  @Get('token')
+  @UseGuards(AuthGuard())
   createNewToken(@GetUser('id', ParseUUIDPipe) id: UUID) {
     return this.authService.createNewToken(id);
   }
 
-  @Get('users') // Recupera la lista de ususrios.
-  @Auth(ValidRoles.admin)
-  findAll(@Query() paginationDto: PaginationDto) {
-    return this.authService.findAll(paginationDto);
-  }
-
-  @Patch(':id') // Actualiza el estado de IsBaned de los usuarios.
-  @Auth(ValidRoles.admin)
+  // Actualiza los datos de un usuario
+  @Patch(':id')
+  @UseGuards(AuthGuard())
   updateUser(
     @Param('id', ParseUUIDPipe) id: UUID,
     @Body() updateUserDto: UpdateUserDto,
