@@ -8,5 +8,6 @@ import { CloudinaryProvider } from './providers/cloudinary.provider';
   controllers: [FilesController],
   providers: [CloudinaryProvider, FilesService],
   imports: [AuthModule],
+  exports: [CloudinaryProvider, FilesService],
 })
 export class FilesModule {}
