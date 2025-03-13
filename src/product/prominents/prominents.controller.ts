@@ -8,11 +8,11 @@ import {
   Delete,
   Query,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ProminentsService } from './prominents.service';
 import { CreateProminentDto } from './dto/create-prominent.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
-import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 import { PaginationDto } from '../../common/dto/paginationDto.dto';
 
 @Controller('/product/prominents')
@@ -20,7 +20,7 @@ export class ProminentsController {
   constructor(private readonly prominentsService: ProminentsService) {}
 
   @Post()
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   create(@Body() createProminentDto: CreateProminentDto) {
     return this.prominentsService.create(createProminentDto);
   }
@@ -31,7 +31,7 @@ export class ProminentsController {
   }
 
   @Delete(':id')
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   remove(@Param('id', ParseUUIDPipe) id: UUID) {
     return this.prominentsService.remove(id);
   }

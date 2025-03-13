@@ -8,19 +8,19 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
-import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   create(@Body() createEventDto: CreateEventDto) {
     return this.eventsService.create(createEventDto);
   }
@@ -31,7 +31,7 @@ export class EventsController {
   }
 
   @Patch(':id')
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   update(
     @Param('id', ParseUUIDPipe) id: UUID,
     @Body() updateEventDto: UpdateEventDto,
@@ -40,7 +40,7 @@ export class EventsController {
   }
 
   @Delete(':id')
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   remove(@Param('id', ParseUUIDPipe) id: UUID) {
     return this.eventsService.remove(id);
   }

@@ -9,21 +9,21 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { Product as ProductModel } from '@prisma/client';
-import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ProductService } from './product.service';
 import { CreateProductDTO } from './dto/create-product.dto';
 import { UpdateProductDTO } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
-import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post() // Crea un nuevo producto en la BD.
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   create(@Body() createProduct: CreateProductDTO): Promise<ProductModel> {
     return this.productService.create(createProduct);
   }
@@ -40,13 +40,13 @@ export class ProductController {
   }
 
   @Get(':id') // Retorna el producto con ese id.
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   findById(@Param('id', ParseUUIDPipe) id: UUID): Promise<ProductModel> {
     return this.productService.findById(id);
   }
 
   @Patch(':id') // Actualiza un producto de la BD.
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   update(
     @Param('id', ParseUUIDPipe) id: UUID,
     @Body() updateProduct: UpdateProductDTO,
@@ -55,7 +55,7 @@ export class ProductController {
   }
 
   @Delete(':id') // Elimina un producto de la BD.
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   delete(@Param('id', ParseUUIDPipe) id: UUID): Promise<ProductModel> {
     return this.productService.delete(id);
   }

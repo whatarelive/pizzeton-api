@@ -8,12 +8,12 @@ import {
   Delete,
   ParseUUIDPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { AuthGuard } from '@nestjs/passport';
 import { Opinion as OpinionModel } from '@prisma/client';
 import { OpinionsService } from './opinions.service';
 import { CreateOpinionDto } from './dto/create-opinion.dto';
-import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 
 @Controller('opinions')
@@ -31,7 +31,7 @@ export class OpinionsController {
   }
 
   @Delete(':id')
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   remove(@Param('id', ParseUUIDPipe) id: UUID): Promise<OpinionModel> {
     return this.opinionsService.delete(id);
   }

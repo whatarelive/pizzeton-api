@@ -8,19 +8,19 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AgregationsService } from './agregations.service';
 import { CreateAgregationDto } from './dto/create-agregation.dto';
 import { UpdateAgregationDto } from './dto/update-agregation.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
-import { ValidRoles } from 'src/auth/interfaces/valid_roles';
 
 @Controller('/product/agregations')
 export class AgregationsController {
   constructor(private readonly agregationsService: AgregationsService) {}
 
   @Post()
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   create(@Body() createAgregationDto: CreateAgregationDto) {
     return this.agregationsService.create(createAgregationDto);
   }
@@ -31,7 +31,7 @@ export class AgregationsController {
   }
 
   @Patch(':id')
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   update(
     @Param('id', ParseUUIDPipe) id: UUID,
     @Body() updateAgregationDto: UpdateAgregationDto,
@@ -40,7 +40,7 @@ export class AgregationsController {
   }
 
   @Delete(':id')
-  @Auth(ValidRoles.admin)
+  @UseGuards(AuthGuard())
   remove(@Param('id', ParseUUIDPipe) id: UUID) {
     return this.agregationsService.remove(id);
   }
