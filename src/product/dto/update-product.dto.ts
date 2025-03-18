@@ -9,7 +9,7 @@ import { CreateProductDTO } from './create-product.dto';
  * que todas las propiedades heredadas son opcionales. Esto permite realizar actualizaciones
  * parciales de los productos, pudiendo modificar solo los campos necesarios.
  *
- * @extends {PartialType(CreateEventDto)}
+ * @extends {PartialType(CreateProductDto)}
  *
  * @property {string} [title] - Título del producto (opcional)
  * - Debe ser una cadena de texto

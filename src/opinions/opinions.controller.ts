@@ -23,6 +23,7 @@ import { PaginationDto } from 'src/common/dto/paginationDto.dto';
  */
 @Controller('opinions')
 export class OpinionsController {
+  // Se inyecta el servicio que maneja la lógica de negocio de las opiniones
   constructor(private readonly opinionsService: OpinionsService) {}
 
   // Crea una nueva opinión

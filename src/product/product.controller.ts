@@ -28,7 +28,7 @@ import { ValidFiles } from 'src/files/interfaces/valid_files';
  */
 @Controller('products')
 export class ProductController {
-  // Se inyecta el servicio que maneja la lógica de negocio de eventos
+  // Se inyecta el servicio que maneja la lógica de negocio de productos
   constructor(private readonly productService: ProductService) {}
 
   // Crea un nuevo producto.

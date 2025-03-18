@@ -24,7 +24,7 @@ export class ProductService {
   /**
    * Crea un nuevo producto con una imagen asociada
    * @param file Archivo de imagen a subir
-   * @param createEventDto Datos del producto a crear
+   * @param createProductDto Datos del producto a crear
    * @returns El producto creado
    */
   async create(file: Express.Multer.File, createProduct: CreateProductDTO) {
@@ -54,7 +54,7 @@ export class ProductService {
   async findAll(paginationDto: PaginationDto) {
     const { category } = paginationDto;
 
-    // Si no se especifica el filtro de categoría, devolver todos los eventos
+    // Si no se especifica el filtro de categoría, devolver todos los productos
     if (!category) {
       return await this.prisma.product.findMany();
     }
@@ -73,7 +73,7 @@ export class ProductService {
    * Actualiza un producto existente
    * @param id Identificador único del producto
    * @param file Archivo de imagen nuevo (opcional)
-   * @param updateEventDto Datos a actualizar
+   * @param updateProductDto Datos a actualizar
    * @returns El producto actualizado
    */
   async update(

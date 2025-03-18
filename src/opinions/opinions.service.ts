@@ -38,7 +38,6 @@ export class OpinionsService {
     }
   }
 
-  // Método para obtener todas las opiniones con paginación
   /**
    * Obtiene todas las opiniones, con opción de ordenar ascendentemente
    * @param paaginationDto Parámetros de paginación y filtrado
