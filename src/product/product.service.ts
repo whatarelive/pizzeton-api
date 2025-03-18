@@ -1,24 +1,43 @@
 import { randomUUID, type UUID } from 'node:crypto';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateProductDTO } from './dto/create-product.dto';
-import { UpdateProductDTO } from './dto/update-product.dto';
+import { CreateProductDTO } from 'src/product/dto/create-product.dto';
+import { UpdateProductDTO } from 'src/product/dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
 import { ErrorHandler } from 'src/common/helpers/ErrorsHandler';
+import { FilesService } from 'src/files/files.service';
 
+/**
+ * Servicio para la gestión de productos
+ *
+ * @description Proporciona funcionalidades para crear, listar, actualizar y eliminar productos
+ */
 @Injectable()
 export class ProductService {
+  // Inyección de dependencias
   constructor(
     private readonly prisma: PrismaService,
+    private readonly cloudinary: FilesService,
     private readonly errorHandler: ErrorHandler,
   ) {}
 
-  // Método para ingresar un nuevo producto en la BD.
-  async create(createProduct: CreateProductDTO) {
+  /**
+   * Crea un nuevo producto con una imagen asociada
+   * @param file Archivo de imagen a subir
+   * @param createEventDto Datos del producto a crear
+   * @returns El producto creado
+   */
+  async create(file: Express.Multer.File, createProduct: CreateProductDTO) {
     try {
+      // Subir la imagen a Cloudinary
+      const { public_id, secure_url } = await this.cloudinary.uploadImage(file);
+
+      // Crear el producto en la base de datos
       return await this.prisma.product.create({
         data: {
           id: randomUUID(),
+          imgId: public_id,
+          imgUrl: secure_url,
           ...createProduct,
         },
       });
@@ -27,14 +46,20 @@ export class ProductService {
     }
   }
 
-  // Método para extraer todos los productos de la BD.
+  /**
+   * Obtiene todos los productos, con opción de filtrar por categorías
+   * @param paaginationDto Parámetros de paginación y filtrado
+   * @returns Lista de productos
+   */
   async findAll(paginationDto: PaginationDto) {
     const { category } = paginationDto;
 
+    // Si no se especifica el filtro de categoría, devolver todos los eventos
     if (!category) {
       return await this.prisma.product.findMany();
     }
 
+    // Buscar todos los productos por categoría
     return await this.prisma.product.findMany({
       where: {
         category: {
@@ -44,45 +69,32 @@ export class ProductService {
     });
   }
 
-  // Método para extraer el producto con ese ID de la BD.
-  async findById(id: UUID) {
-    const product = await this.prisma.product.findUnique({
-      where: { id },
-    });
-
-    if (!product)
-      throw new NotFoundException(`Product with id: ${id} not exists in db.`);
-
-    return product;
-  }
-
-  async findTotalProducts(paginationDto: PaginationDto) {
-    const { search, category } = paginationDto;
-
-    if (search && !category) {
-      return await this.prisma.product.count({
-        where: {
-          title: {
-            contains: search,
-          },
-        },
-      });
-    }
-
-    if (category && !search) {
-      return await this.prisma.product.count({
-        where: {
-          category: category,
-        },
-      });
-    }
-
-    return await this.prisma.product.count();
-  }
-
-  // Método para actualizar un producto de la BD.
-  async update(id: UUID, updateProduct: UpdateProductDTO) {
+  /**
+   * Actualiza un producto existente
+   * @param id Identificador único del producto
+   * @param file Archivo de imagen nuevo (opcional)
+   * @param updateEventDto Datos a actualizar
+   * @returns El producto actualizado
+   */
+  async update(
+    id: UUID,
+    file: Express.Multer.File,
+    updateProduct: UpdateProductDTO,
+  ) {
     try {
+      // Si se proporciona un nuevo archivo, actualizar la imagen
+      if (file) {
+        const { public_id, secure_url } = await this.cloudinary.updateImage(
+          updateProduct.imgID,
+          file,
+        );
+
+        // Se muta la información del DTO
+        updateProduct.imgID = public_id;
+        updateProduct.imgUrl = secure_url;
+      }
+
+      // Actualizar el producto en la base de datos
       return await this.prisma.product.update({
         where: { id },
         data: updateProduct,
@@ -92,12 +104,22 @@ export class ProductService {
     }
   }
 
-  // Método para eliminar un producto de la BD.
+  /**
+   * Elimina un producto por su ID
+   * @param id Identificador único del producto a eliminar
+   * @returns El producto eliminado
+   */
   async delete(id: UUID) {
     try {
-      return await this.prisma.product.delete({
+      // Eliminar el producto de la base de datos
+      const product = await this.prisma.product.delete({
         where: { id },
       });
+
+      // Eliminar la imagen asociada de Cloudinary
+      await this.cloudinary.deleteImage(product.imgId);
+
+      return product;
     } catch (error) {
       this.errorHandler.purge(error, 'Product');
     }

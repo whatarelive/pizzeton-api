@@ -9,52 +9,59 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Product as ProductModel } from '@prisma/client';
-import { ProductService } from './product.service';
-import { CreateProductDTO } from './dto/create-product.dto';
-import { UpdateProductDTO } from './dto/update-product.dto';
+import { ProductService } from 'src/product/product.service';
+import { CreateProductDTO } from 'src/product/dto/create-product.dto';
+import { UpdateProductDTO } from 'src/product/dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/paginationDto.dto';
+import { UploadImage } from 'src/files/decorators/upload-file.decorator';
+import { ValidFiles } from 'src/files/interfaces/valid_files';
 
+/**
+ * Controlador que maneja todas las operaciones relacionadas con los productos
+ *
+ * @description Gestiona las operaciones CRUD para los productos, incluyendo la carga de imágenes
+ */
 @Controller('products')
 export class ProductController {
+  // Se inyecta el servicio que maneja la lógica de negocio de eventos
   constructor(private readonly productService: ProductService) {}
 
-  @Post() // Crea un nuevo producto en la BD.
+  // Crea un nuevo producto.
+  @Post()
   @UseGuards(AuthGuard())
-  create(@Body() createProduct: CreateProductDTO): Promise<ProductModel> {
-    return this.productService.create(createProduct);
+  @UploadImage(ValidFiles.jpg, ValidFiles.jpeg, ValidFiles.png)
+  create(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createProduct: CreateProductDTO,
+  ): Promise<ProductModel> {
+    return this.productService.create(file, createProduct);
   }
 
-  @Get('/size')
-  // @Auth(ValidRoles.admin)
-  findTotalProducts(@Query() paginationDto: PaginationDto) {
-    return this.productService.findTotalProducts(paginationDto);
-  }
-
-  @Get() // Retorna todos los productos.
+  // Obtiene todos los productos.
+  @Get()
   findAll(@Query() paginationDto: PaginationDto): Promise<ProductModel[]> {
     return this.productService.findAll(paginationDto);
   }
 
-  @Get(':id') // Retorna el producto con ese id.
+  // Actualiza un producto existente.
+  @Patch(':id')
   @UseGuards(AuthGuard())
-  findById(@Param('id', ParseUUIDPipe) id: UUID): Promise<ProductModel> {
-    return this.productService.findById(id);
-  }
-
-  @Patch(':id') // Actualiza un producto de la BD.
-  @UseGuards(AuthGuard())
+  @UploadImage(ValidFiles.jpg, ValidFiles.jpeg, ValidFiles.png)
   update(
     @Param('id', ParseUUIDPipe) id: UUID,
+    @UploadedFile() file: Express.Multer.File,
     @Body() updateProduct: UpdateProductDTO,
   ): Promise<ProductModel> {
-    return this.productService.update(id, updateProduct);
+    return this.productService.update(id, file, updateProduct);
   }
 
-  @Delete(':id') // Elimina un producto de la BD.
+  // Elimina un producto.
+  @Delete(':id')
   @UseGuards(AuthGuard())
   delete(@Param('id', ParseUUIDPipe) id: UUID): Promise<ProductModel> {
     return this.productService.delete(id);
