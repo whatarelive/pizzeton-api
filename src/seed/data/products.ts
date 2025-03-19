@@ -242,4 +242,31 @@ export const productsSeed = [
     subtitle: 'Helado especial de varios sabores.',
     price: 652.0,
   },
+  {
+    imgUrl:
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+    imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
+    category: 'Otros',
+    title: 'Pollo Asado',
+    subtitle: 'Muslo de pollo frito con chicharitas',
+    price: 1000,
+  },
+  {
+    imgUrl:
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+    imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
+    category: 'Otros',
+    title: 'Croquetas',
+    subtitle: 'Ración de 10 croquetas y salsa de tomate.',
+    price: 350.0,
+  },
+  {
+    imgUrl:
+      'https://res.cloudinary.com/dkog2edwi/image/upload/q_auto,f_auto/v1734890328/pizzeton/products/buow4bhufgfygkwdgtve.jpg',
+    imgId: 'pizzeton/products/buow4bhufgfygkwdgtve',
+    category: 'Otros',
+    title: 'Salchipapas',
+    subtitle: 'Ración de salchichas y papas fritas con salsa de tomate.',
+    price: 1456.0,
+  },
 ];
