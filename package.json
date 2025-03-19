@@ -1,10 +1,10 @@
 {
   "name": "pizzeton-api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.0.0",
+  "description": "API para la gestión de la pizzería Pizzeton D'Guti",
+  "author": "Adrián Daniel Gutierrez",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
