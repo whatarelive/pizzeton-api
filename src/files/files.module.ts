@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from 'src/auth/auth.module';
 import { FilesService } from './files.service';
 import { CloudinaryProvider } from './providers/cloudinary.provider';
 
@@ -14,7 +13,6 @@ import { CloudinaryProvider } from './providers/cloudinary.provider';
     CloudinaryProvider, // Proveedor para la integración con Cloudinary
     FilesService, // Servicio para la gestión de archivos
   ],
-  imports: [AuthModule], // Importa el módulo de autenticación para proteger las operaciones de archivos
   exports: [
     CloudinaryProvider, // Exporta el proveedor de Cloudinary para uso en otros módulos
     FilesService, // Exporta el servicio de archivos para uso en otros módulos

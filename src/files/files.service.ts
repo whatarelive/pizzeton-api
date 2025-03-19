@@ -9,13 +9,8 @@ import { unlink } from 'node:fs/promises';
 @Injectable()
 export class FilesService {
   // Carga de la imagen predeterminada
-  constructor(
-    private readonly imgID: string,
-    private readonly imgUrl: string,
-  ) {
-    this.imgID = process.env.CLOUDINARY_IMGID_MODAL;
-    this.imgUrl = process.env.CLOUDINARY_IMGURL_MODAL;
-  }
+  private readonly imgID: string = process.env.CLOUDINARY_IMGID_MODAL;
+  private readonly imgUrl: string = process.env.CLOUDINARY_IMGURL_MODAL;
 
   /**
    * Sube una imagen a Cloudinary
